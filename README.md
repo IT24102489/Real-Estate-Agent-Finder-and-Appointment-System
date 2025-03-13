@@ -6,9 +6,12 @@ Member Details:
 
 | Name | Student ID | Username |
 | ---- | ---------- | -------- |
-| Ariyasena P.P.S. | IT20657864 | IT20636524 |
-| De Zoysa R.L. | IT20650834 | Lakshikz |
-
+| Ranasinghe R.P.K.S | IT24100434 | IT24100434 |
+| Nisadi G.D.R | IT24102489 | IT24102489 |
+| Udayanga D.A.D.N | IT24100425 | IT24100425 |
+| Kishalini.P | IT24102096 | IT24102096 |
+| Udawaththa D.D.E | IT24100738 | IT24100738 |
+| Manasee A.T.T.E | IT24102121 | IT24102121 |
 
 ## Project Description
 
@@ -40,21 +43,21 @@ The Real Estate Agent Finder and Appointment System is a web-based application d
 
 ## Object-Oriented Principles:
 
-The system follows Object-Oriented Programming (OOP) principles such as:
+* The system follows Object-Oriented Programming (OOP) principles such as:
 
-Encapsulation (hiding data and exposing only necessary functionalities)
+* Encapsulation (hiding data and exposing only necessary functionalities)
 
-Inheritance (reusing existing code through class hierarchy)
+* Inheritance (reusing existing code through class hierarchy)
 
-Polymorphism (using method overriding for flexibility)
+* Polymorphism (using method overriding for flexibility)
 
 ## Development Approach:
 
-The project is developed using Java web technologies with GitHub version control for collaborative development.
+* The project is developed using Java web technologies with GitHub version control for collaborative development.
 
-A final report, class diagrams, and viva presentation are part of the project deliverables.
+* A final report, class diagrams, and viva presentation are part of the project deliverables.
 
 ## Links
 
-GitHub Repository: [Insert Link Here]
+* GitHub Repository: (https://github.com/IT24102489/Real-Estate-Agent-Finder-and-Appointment-System.git)
 
