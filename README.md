@@ -59,5 +59,5 @@ The Real Estate Agent Finder and Appointment System is a web-based application d
 
 ## Links
 
-* GitHub Repository: (https://github.com/IT24102489/Real-Estate-Agent-Finder-and-Appointment-System.git)
+* GitHub Repository: https://github.com/IT24102489/Real-Estate-Agent-Finder-and-Appointment-System.git
 
