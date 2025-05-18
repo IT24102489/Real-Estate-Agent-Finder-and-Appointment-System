@@ -12,40 +12,59 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 @WebServlet("/addAgent")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10,      // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2,   // 2MB
+        maxFileSize = 1024 * 1024 * 10,        // 10MB
+        maxRequestSize = 1024 * 1024 * 50      // 50MB
+)
 public class AddAgentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve form data
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String expertise = request.getParameter("expertise");
+        try {
+            // 🔍 Check if this is an update or a new agent
+            String idParam = request.getParameter("id"); // Comes from hidden input if updating
+            boolean isUpdate = idParam != null && !idParam.isEmpty();
+            int agentId = isUpdate ? Integer.parseInt(idParam) : 0;
 
-        // Handle file upload
-        Part filePart = request.getPart("image");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            // 📝 Get form data
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String expertise = request.getParameter("expertise");
 
-        // Configure upload path
-        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdir();
+            // 📸 Handle image upload
+            Part filePart = request.getPart("image");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-        // Save file
-        filePart.write(uploadPath + File.separator + fileName);
+            // Save to /uploads
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            filePart.write(uploadPath + File.separator + fileName);
 
-        // Create web-accessible path
-        String imagePath = request.getContextPath() + "/uploads/" + fileName;
+            // Web path for image
+            String imagePath = request.getContextPath() + "/uploads/" + fileName;
 
-        // Create and save agent
-        Agent newAgent = new Agent(0, name, email, phone, expertise, imagePath);
-        String dataFilePath = getServletContext().getRealPath("/") + "agents.txt";
-        new AgentDAO(dataFilePath).addAgent(newAgent);
+            // 📁 Path to data file
+            String dataFilePath = getServletContext().getRealPath("/") + "agents.txt";
+            AgentDAO agentDAO = new AgentDAO(dataFilePath);
 
-        response.sendRedirect("viewAgents");
+            // 🔁 Update or ➕ Add logic
+            Agent agent = new Agent(agentId, name, email, phone, expertise, imagePath);
+            if (isUpdate) {
+                agentDAO.updateAgent(agent);
+            } else {
+                agentDAO.addAgent(agent); 
+            }
+
+            response.sendRedirect("viewAgents");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Error processing agent: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
     }
 }

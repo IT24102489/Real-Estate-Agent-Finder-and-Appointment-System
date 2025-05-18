@@ -4,7 +4,7 @@ import com.example.oop.model.Agent;
 import com.example.oop.util.AgentBST;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 
 public class AgentDAO {
     private static AgentBST bst = new AgentBST();
@@ -55,18 +55,34 @@ public class AgentDAO {
         }
     }
 
+    // 🔄 Modified to use reusable ID
     public void addAgent(Agent agent) {
-        int newId = findMaxId() + 1;
+        int newId = getNextAvailableId(); // ✅ new logic here
         agent.setId(newId);
         bst.insert(agent);
         saveAgents();
     }
 
-    private int findMaxId() {
-        return bst.getAllAgents().stream()
-                .mapToInt(Agent::getId)
-                .max()
-                .orElse(0);
+    // ✅ NEW: Finds the smallest unused ID
+    private int getNextAvailableId() {
+        List<Agent> agents = bst.getAllAgents();
+        Set<Integer> existingIds = new TreeSet<>();
+
+        for (Agent a : agents) {
+            existingIds.add(a.getId());
+        }
+
+        int id = 1;
+        for (Integer existingId : existingIds) {
+            if (id < existingId) {
+                break;
+            }
+            if (id == existingId) {
+                id++;
+            }
+        }
+
+        return id;
     }
 
     public List<Agent> getAllAgents() {

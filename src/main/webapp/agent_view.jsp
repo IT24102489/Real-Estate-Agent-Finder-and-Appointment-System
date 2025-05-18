@@ -273,7 +273,7 @@
             </span>
         </div>
     </div>
-    
+
 
     <div class="cards-container">
         <% for (Agent agent : agents) { %>
