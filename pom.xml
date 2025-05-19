@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>oop</artifactId>
+    <artifactId>RealEstateAgentFinder</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Real Estate Agent Finder and Appointment System</name>
+    <name>RealEstateAgentFinder</name>
     <packaging>war</packaging>
 
     <properties>
@@ -36,7 +36,10 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
+
+
 
     <build>
         <plugins>
