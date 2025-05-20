@@ -7,6 +7,7 @@ public class Agent {
     private String phone;
     private String expertise;
     private String imagePath;
+    private double rating;
 
     // Default constructor for JSP/EL compatibility
     public Agent() {}
@@ -20,6 +21,7 @@ public class Agent {
         this.phone = phone;
         this.expertise = expertise;
         this.imagePath = imagePath;
+        this.rating = rating;
     }
 
     // Getters
@@ -29,8 +31,14 @@ public class Agent {
     public String getPhone() { return phone; }
     public String getExpertise() { return expertise; }
     public String getImagePath() { return imagePath; }
+    public double getRating() { return id; }
 
     // Setters with basic validation
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     public void setId(int id) {
         if(id < 0) throw new IllegalArgumentException("ID cannot be negative");
         this.id = id;

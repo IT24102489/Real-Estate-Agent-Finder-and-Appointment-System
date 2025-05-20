@@ -48,6 +48,24 @@
             gap: 1rem;
         }
 
+        .rating-btn {
+            background: #add8e6; /* Light blue */
+            color: gold; /* Only the star gets the golden glow */
+            padding: 0.5rem 0.7rem;
+            border: none;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+        .rating-btn:hover {
+            transform: scale(1.1);
+        }
+
         .header-controls {
             display: flex;
             align-items: center;
@@ -245,10 +263,17 @@
                 <td><%= agent.getPhone() %></td>
                 <td><%= agent.getExpertise() %></td>
                 <td>
+
+
+
+
                     <a href="updateAgent?id=<%= agent.getId() %>" class="action-btn update-btn"><i class="fas fa-edit"></i></a>
                     <form action="deleteAgent" method="post" onsubmit="return confirm('Delete this agent?');" style="display:inline;">
                         <input type="hidden" name="id" value="<%= agent.getId() %>">
                         <button type="submit" class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        <a href="new-review.jsp?agentId=${agent.getId()}" class="action-btn rating-btn" title="Review Agent">
+                            <i class="fas fa-star"></i>
+                        </a>
                     </form>
                 </td>
             </tr>
@@ -284,6 +309,12 @@
                     <p class="card-title"><%= agent.getName() %></p>
                     <p class="card-id">ID: #<%= agent.getId() %></p>
                 </div>
+
+                <a href="new-review.jsp?agentId=${agent.getId()}" class="rating-btn" title="Review Agent">
+                    <i class="fas fa-star"></i>
+                </a>
+
+
             </div>
             <div class="detail-row"><span>Email:</span><span><%= agent.getEmail() %></span></div>
             <div class="detail-row"><span>Phone:</span><span><%= agent.getPhone() %></span></div>

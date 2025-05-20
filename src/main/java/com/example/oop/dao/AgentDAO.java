@@ -103,4 +103,30 @@ public class AgentDAO {
         bst.delete(id);
         saveAgents();
     }
+
+    // 🆕 Selection Sort Method
+    public List<Agent> getAgentsSortedByRating() {
+        List<Agent> agents = new ArrayList<>(bst.getAllAgents());
+        selectionSortByRating(agents);
+        return agents;
+    }
+
+    // 🆕 Selection Sort Implementation
+    private void selectionSortByRating(List<Agent> agents) {
+        int n = agents.size();
+        for (int i = 0; i < n - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (agents.get(j).getRating() > agents.get(maxIndex).getRating()) {
+                    maxIndex = j;
+                }
+            }
+            if (maxIndex != i) {
+                Agent temp = agents.get(i);
+                agents.set(i, agents.get(maxIndex));
+                agents.set(maxIndex, temp);
+            }
+        }
+    }
 }
+
