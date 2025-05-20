@@ -1,0 +1,5 @@
+User{id=1, username='admin', role='admin', name='Administrator', email='admin@realestate.com'}
+User{id=2, username='johnsmith', role='agent', name='John Smith', email='john.smith@realestate.com'}
+User{id=3, username='sarahjohnson', role='agent', name='Sarah Johnson', email='sarah.j@realestate.com'}
+User{id=4, username='client1', role='client', name='David Miller', email='david@example.com'}
+User{id=5, username='client2', role='client', name='Lisa Chen', email='lisa@example.com'}

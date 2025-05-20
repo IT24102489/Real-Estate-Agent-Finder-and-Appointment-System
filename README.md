@@ -27,6 +27,8 @@ The Real Estate Agent Finder and Appointment System is a web-based application d
 
 * Appointment Scheduling: Users can book, update, or cancel appointments with agents.
 
+* Reviews & Ratings System: Clients can leave reviews and rate real estate agents, using a custom priority queue data structure for efficient retrieval of top-rated reviews.
+
 * User-Friendly Interface: UI enhancements using Tailwind CSS/Bootstrap.
 
 ## Technologies Used:
