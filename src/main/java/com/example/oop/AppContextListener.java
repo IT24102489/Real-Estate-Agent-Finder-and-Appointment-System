@@ -15,6 +15,7 @@ public class AppContextListener implements ServletContextListener {
         String contextPath = sce.getServletContext().getRealPath("/");
         String filePath = contextPath + File.separator + "agents.txt";
 
+
         // Initialize DAO with correct path
         new AgentDAO(filePath);  // This will trigger loading from file
         System.out.println("Agents loaded into BST from: " + filePath);
