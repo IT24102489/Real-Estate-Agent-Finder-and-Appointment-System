@@ -21,7 +21,7 @@ public class Agent {
         this.phone = phone;
         this.expertise = expertise;
         this.imagePath = imagePath;
-        this.rating = rating;
+        this.rating = rating  ;
     }
 
     // Getters
