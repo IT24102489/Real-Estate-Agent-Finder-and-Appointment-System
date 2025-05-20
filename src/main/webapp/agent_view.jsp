@@ -271,9 +271,7 @@
                     <form action="deleteAgent" method="post" onsubmit="return confirm('Delete this agent?');" style="display:inline;">
                         <input type="hidden" name="id" value="<%= agent.getId() %>">
                         <button type="submit" class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
-                        <a href="new-review.jsp?agentId=${agent.getId()}" class="action-btn rating-btn" title="Review Agent">
-                            <i class="fas fa-star"></i>
-                        </a>
+
                     </form>
                 </td>
             </tr>
@@ -310,9 +308,6 @@
                     <p class="card-id">ID: #<%= agent.getId() %></p>
                 </div>
 
-                <a href="new-review.jsp?agentId=${agent.getId()}" class="rating-btn" title="Review Agent">
-                    <i class="fas fa-star"></i>
-                </a>
 
 
             </div>

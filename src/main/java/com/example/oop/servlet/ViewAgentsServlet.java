@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/viewAgents")
-public class ViewAgentsServlet extends HttpServlet {
+public class ViewAgentsServlet extends HttpServlet  {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
