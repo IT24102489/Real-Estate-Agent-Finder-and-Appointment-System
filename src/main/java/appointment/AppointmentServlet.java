@@ -14,7 +14,7 @@ import java.util.UUID;
 @WebServlet("/submit_appointment")
 public class AppointmentServlet extends HttpServlet {
 
-    private static final String FILE_PATH = "C:/Users/nadun/OneDrive/Documents/Appointment.txt"; // Update this path
+    private static final String FILE_PATH = "C:/Users/nadun/OneDrive/Documents/Appointment.txt";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
