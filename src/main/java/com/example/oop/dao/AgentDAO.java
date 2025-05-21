@@ -6,6 +6,7 @@ import com.example.oop.util.AgentBST;
 import java.io.*;
 import java.util.*;
 
+//DSA
 public class AgentDAO {
     private static AgentBST bst = new AgentBST();
     private final String filePath;
@@ -55,7 +56,7 @@ public class AgentDAO {
         }
     }
 
-    // 🔄 Modified to use reusable ID
+    //  Modified to use reusable ID
     public void addAgent(Agent agent) {
         int newId = getNextAvailableId(); // ✅ new logic here
         agent.setId(newId);
@@ -104,7 +105,7 @@ public class AgentDAO {
         saveAgents();
     }
 
-    // 🆕 Selection Sort Method
+    // DSA Selection Sort Method
     public List<Agent> getAgentsSortedByRating() {
         List<Agent> agents = new ArrayList<>(bst.getAllAgents());
         selectionSortByRating(agents);
