@@ -47,11 +47,10 @@ public class AddAgentServlet extends HttpServlet {
             // Web path for image
             String imagePath = request.getContextPath() + "/uploads/" + fileName;
 
-            // 📁 Path to data file
+            // Path to data file
             String dataFilePath = getServletContext().getRealPath("/") + "agents.txt";
             AgentDAO agentDAO = new AgentDAO(dataFilePath);
 
-            // 🔁 Update or ➕ Add logic
             Agent agent = new Agent(agentId, name, email, phone, expertise, imagePath);
             if (isUpdate) {
                 agentDAO.updateAgent(agent);
