@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 
 @WebServlet("/addAgent")
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 2,   // 2MB
-        maxFileSize = 1024 * 1024 * 10,        // 10MB
-        maxRequestSize = 1024 * 1024 * 50      // 50MB
+        fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 50
 )
 public class AddAgentServlet extends HttpServlet {
 
@@ -23,18 +23,18 @@ public class AddAgentServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // 🔍 Check if this is an update or a new agent
-            String idParam = request.getParameter("id"); // Comes from hidden input if updating
+            // Check if this is an update or a new agent
+            String idParam = request.getParameter("id");
             boolean isUpdate = idParam != null && !idParam.isEmpty();
             int agentId = isUpdate ? Integer.parseInt(idParam) : 0;
 
-            // 📝 Get form data
+            //Get form data
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
             String expertise = request.getParameter("expertise");
 
-            // 📸 Handle image upload
+            //Handle image upload
             Part filePart = request.getPart("image");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 

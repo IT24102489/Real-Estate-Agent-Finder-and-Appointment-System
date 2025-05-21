@@ -9,7 +9,7 @@ public class Agent {
     private String imagePath;
     private double rating;
 
-    // Default constructor 
+    // Default constructor
     public Agent() {}
 
     // All-args constructor
@@ -34,7 +34,6 @@ public class Agent {
     public double getRating() { return id; }
 
     // Setters with basic validation
-
     public void setRating(double rating) {
         this.rating = rating;
     }
