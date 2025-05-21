@@ -6,6 +6,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
 import java.util.Properties;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
@@ -14,8 +15,8 @@ import java.nio.file.StandardOpenOption;
 @WebServlet("/agentregister") // Changed mapping for demonstration; please adjust if needed
 public class AgentRegisterServletP extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    // Assuming this servlet uses a different data file or structure for agents
-    private static final String AGENT_DATA_FILE = "WEB-INF/userdata/agents.properties";
+    private static final String LOCAL_STORAGE_DIR = "localdata";
+    private static final String AGENT_DATA_FILE = "agents.properties";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,17 +35,17 @@ public class AgentRegisterServletP extends HttpServlet {
             return;
         }
 
-        // Get real path to the data file (for agents)
-        String filePath = getServletContext().getRealPath(AGENT_DATA_FILE);
-        File userDataDir = new File(getServletContext().getRealPath("WEB-INF/userdata"));
-
-        // Create directory if it doesn't exist
-        if (!userDataDir.exists()) {
-            userDataDir.mkdirs();
+        // Create local storage directory if it doesn't exist
+        Path localDir = Paths.get(LOCAL_STORAGE_DIR);
+        if (!Files.exists(localDir)) {
+            Files.createDirectories(localDir);
         }
 
+        // Get path to the agent data file
+        Path filePath = localDir.resolve(AGENT_DATA_FILE);
+        File agentFile = filePath.toFile();
+
         Properties agents = new Properties();
-        File agentFile = new File(filePath);
 
         // Load existing agents if file exists
         if (agentFile.exists()) {
@@ -70,8 +71,8 @@ public class AgentRegisterServletP extends HttpServlet {
         String agentName = (name != null && !name.trim().isEmpty()) ? name.trim() : "N/A"; // Use "N/A" or similar if name is empty
         agents.setProperty(email, agentName + ":" + password); // Storing name (optional) and password, consider hashing password
 
-        // Save properties file (for agents)
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+        // Save properties file
+        try (FileOutputStream fos = new FileOutputStream(agentFile)) {
             agents.store(fos, "Agent Data");
         } catch (IOException e) {
              System.err.println("Error saving agent data: " + e.getMessage());
@@ -80,8 +81,8 @@ public class AgentRegisterServletP extends HttpServlet {
              return;
         }
 
-        // Also save agent data in a separate file for file handling demonstration (optional)
-        String agentDetailPath = getServletContext().getRealPath("WEB-INF/userdata/" + email.replaceAll("[^a-zA-Z0-9]", "_") + "_agent.txt");
+        // Save agent details in a separate file
+        String agentDetailPath = localDir.resolve(email.replaceAll("[^a-zA-Z0-9]", "_") + "_agent.txt").toString();
         try {
             Files.write(
                     Paths.get(agentDetailPath),

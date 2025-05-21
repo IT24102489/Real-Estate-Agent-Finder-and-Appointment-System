@@ -7,11 +7,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @WebServlet("/agentsignin") // Map this servlet to the /agentsignin URL
 public class AgentSignInServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String AGENT_DATA_FILE = "WEB-INF/userdata/agents.properties";
+    private static final String LOCAL_STORAGE_DIR = "localdata";
+    private static final String AGENT_DATA_FILE = "agents.properties";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get form parameters
@@ -25,13 +28,14 @@ public class AgentSignInServlet extends HttpServlet {
             return;
         }
 
-        // Get real path to the agent data file
-        String filePath = getServletContext().getRealPath(AGENT_DATA_FILE);
-        File agentFile = new File(filePath);
+        // Get path to the agent data file
+        Path localDir = Paths.get(LOCAL_STORAGE_DIR);
+        Path filePath = localDir.resolve(AGENT_DATA_FILE);
+        File agentFile = filePath.toFile();
 
         // Check if agent data file exists
         if (!agentFile.exists()) {
-             System.err.println("Agent data file not found: " + filePath);
+            System.err.println("Agent data file not found: " + filePath);
             request.setAttribute("errorMessage", "Agent data not available. Please try again later.");
             request.getRequestDispatcher("AgentSignIn.jsp").forward(request, response);
             return;
@@ -59,7 +63,7 @@ public class AgentSignInServlet extends HttpServlet {
 
         String[] parts = agentData.split(":");
         // Basic password check (should be replaced with secure hashing in a real application)
-        if (parts.length < 2 || !parts[1].equals(password)) { // parts[0] is name, parts[1] is password
+        if (parts.length < 2 || !parts[1].equals(password)) {
             request.setAttribute("errorMessage", "Invalid email or password.");
             request.getRequestDispatcher("AgentSignIn.jsp").forward(request, response);
             return;
@@ -69,14 +73,26 @@ public class AgentSignInServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("agentEmail", email);
         session.setAttribute("agentName", parts[0]); // Store agent name in session
-        session.setAttribute("isAgentLoggedIn", true); // Use a specific flag for agent login
+        session.setAttribute("isAgentLoggedIn", true);
+
+        // Update login history
+        String loginHistoryPath = localDir.resolve(email.replaceAll("[^a-zA-Z0-9]", "_") + "_logins.txt").toString();
+        try (java.io.FileWriter fw = new java.io.FileWriter(loginHistoryPath, true)) {
+            if (!new File(loginHistoryPath).exists()) {
+                fw.write("Login History for " + email + "\n");
+                fw.write("==================================\n");
+            }
+            fw.write(new java.util.Date().toString() + "\n");
+        } catch (IOException e) {
+            System.err.println("Error writing login history: " + e.getMessage());
+        }
 
         // Redirect to property dashboard
         response.sendRedirect("propertyDashboard.jsp");
     }
 
-     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         // Optionally handle GET requests, perhaps redirect to the sign-in page
-         response.sendRedirect("AgentSignIn.jsp");
-     }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Optionally handle GET requests, perhaps redirect to the sign-in page
+        response.sendRedirect("AgentSignIn.jsp");
+    }
 } 

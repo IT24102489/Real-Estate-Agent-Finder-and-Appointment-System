@@ -3,12 +3,12 @@ package model;
 import model.*;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
 
 public class FileUtil {
+    // Define the local storage directory
+    private static final String LOCAL_STORAGE_DIR = "localdata";
 
     public static String getFileForRole(String role) throws IOException {
         String fileName;
@@ -19,25 +19,19 @@ public class FileUtil {
             default: return null;
         }
 
-        // Try to find the file in the resources
-        ClassLoader classLoader = FileUtil.class.getClassLoader();
-        URL resource = classLoader.getResource(fileName);
-
-        if (resource != null) {
-            try {
-                return Paths.get(resource.toURI()).toString();
-            } catch (URISyntaxException e) {
-                throw new IOException("Invalid URI for resource: " + fileName, e);
-            }
-        } else {
-            // File not found in resources, create it manually
-            Path path = Paths.get("src/main/resources", fileName);
-            if (Files.notExists(path)) {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
-            }
-            return path.toAbsolutePath().toString();
+        // Create the local storage directory if it doesn't exist
+        Path localDir = Paths.get(LOCAL_STORAGE_DIR);
+        if (!Files.exists(localDir)) {
+            Files.createDirectories(localDir);
         }
+
+        // Create the file path in local storage
+        Path filePath = localDir.resolve(fileName);
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
+
+        return filePath.toAbsolutePath().toString();
     }
 
     public static void saveUser(User user) throws IOException {
@@ -56,8 +50,6 @@ public class FileUtil {
             System.out.println("User data written to file: " + user.getUsername());
         }
     }
-
-
 
     public static User authenticate(String username, String password) throws IOException {
         for (String role : List.of("client", "agent", "admin")) {
@@ -81,7 +73,6 @@ public class FileUtil {
         }
         return null;
     }
-
 
     public static List<User> getAllUsers(String role) throws IOException {
         List<User> users = new ArrayList<>();

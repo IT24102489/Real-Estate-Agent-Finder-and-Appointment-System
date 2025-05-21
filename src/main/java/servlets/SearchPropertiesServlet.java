@@ -48,4 +48,4 @@ public class SearchPropertiesServlet extends HttpServlet {
         request.setAttribute("properties", properties);
         request.getRequestDispatcher("ViewProperty.jsp").forward(request, response);
     }
-} 
+}
