@@ -58,13 +58,12 @@ public class AgentDAO {
 
     //  Modified to use reusable ID
     public void addAgent(Agent agent) {
-        int newId = getNextAvailableId(); // ✅ new logic here
+        int newId = getNextAvailableId();
         agent.setId(newId);
         bst.insert(agent);
         saveAgents();
     }
 
-    // ✅ NEW: Finds the smallest unused ID
     private int getNextAvailableId() {
         List<Agent> agents = bst.getAllAgents();
         Set<Integer> existingIds = new TreeSet<>();
@@ -105,12 +104,6 @@ public class AgentDAO {
         saveAgents();
     }
 
-    // DSA Selection Sort Method
-    public List<Agent> getAgentsSortedByRating() {
-        List<Agent> agents = new ArrayList<>(bst.getAllAgents());
-        selectionSortByRating(agents);
-        return agents;
-    }
 
     // Selection Sort Implementation
     private void selectionSortByRating(List<Agent> agents) {
@@ -128,6 +121,13 @@ public class AgentDAO {
                 agents.set(maxIndex, temp);
             }
         }
+    }
+
+    // DSA Selection Sort Method
+    public List<Agent> getAgentsSortedByRating() {
+        List<Agent> agents = new ArrayList<>(bst.getAllAgents());
+        selectionSortByRating(agents);
+        return agents;
     }
 }
 
