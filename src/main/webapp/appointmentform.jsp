@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nadun
-  Date: 07/05/2025
-  Time: 22:28
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Appointment Form </title>
+    <title>Appointment Form | PrimeHomes</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" >
     <link href="css/font-awesome.min.css" rel="stylesheet" >
     <link href="css/global.css" rel="stylesheet">
@@ -172,8 +165,6 @@
     <h2>Schedule a Consultation</h2>
     <form class="minimal-form" method="post" action="submit_appointment">
         <div class="minimal-form-group">
-            <h2>Book Your Appointment</h2>
-
             <label for="first-name">First Name</label>
             <input type="text" id="first-name" name="firstName" required autocomplete="given-name" />
         </div>
@@ -241,7 +232,6 @@
         <div class="button-wrapper">
             <button type="submit" class="minimal-submit-btn">Book Appointment</button>
         </div>
-
     </form>
 </div>
 
