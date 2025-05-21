@@ -9,7 +9,7 @@ public class Agent {
     private String imagePath;
     private double rating;
 
-    // Default constructor for JSP/EL compatibility
+    // Default constructor 
     public Agent() {}
 
     // All-args constructor
