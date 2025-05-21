@@ -109,7 +109,7 @@ public class UpdateAppointmentServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html><head><script type='text/javascript'>");
         out.println("alert('Consultation has been successfully updated.');");
-        out.println("window.location.href = 'appointmentsList.jsp';");
+        out.println("window.location.href = 'appointmentlist.jsp';");
         out.println("</script></head>");
         out.println("<body style='background-color: white;'></body></html>");
     }
