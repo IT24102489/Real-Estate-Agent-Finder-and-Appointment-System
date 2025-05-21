@@ -13,7 +13,7 @@ import java.util.List;
 @WebServlet("/update_consultation")
 public class UpdateAppointmentServlet extends HttpServlet {
 
-    private static final String FILE_PATH = "C:/Users/nadun/OneDrive/Documents/Appointment.txt";
+    private static final String FILE_PATH = "/Users/antonabitharshan/Documents/Pro/appointment.txt";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -109,7 +109,7 @@ public class UpdateAppointmentServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html><head><script type='text/javascript'>");
         out.println("alert('Consultation has been successfully updated.');");
-        out.println("window.location.href = 'appointmentlist.jsp';");
+        out.println("window.location.href = 'appointmentsList.jsp';");
         out.println("</script></head>");
         out.println("<body style='background-color: white;'></body></html>");
     }
