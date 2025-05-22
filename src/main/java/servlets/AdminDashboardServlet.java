@@ -14,7 +14,7 @@ public class AdminDashboardServlet extends HttpServlet {
             throws ServletException, IOException {
         List<User> clients = FileUtil.getAllUsers("client");
         request.setAttribute("clients", clients);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/manage_users.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("UserDashboard.jsp");
         dispatcher.forward(request, response);
     }
 }

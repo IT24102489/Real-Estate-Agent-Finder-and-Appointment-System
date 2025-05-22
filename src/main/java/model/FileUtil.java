@@ -7,7 +7,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class FileUtil {
-    // Define the local storage directory
+
     private static final String LOCAL_STORAGE_DIR = "localdata";
 
     public static String getFileForRole(String role) throws IOException {
@@ -19,13 +19,13 @@ public class FileUtil {
             default: return null;
         }
 
-        // Create the local storage directory if it doesn't exist
+
         Path localDir = Paths.get(LOCAL_STORAGE_DIR);
         if (!Files.exists(localDir)) {
             Files.createDirectories(localDir);
         }
 
-        // Create the file path in local storage
+
         Path filePath = localDir.resolve(fileName);
         if (!Files.exists(filePath)) {
             Files.createFile(filePath);
@@ -40,7 +40,7 @@ public class FileUtil {
             throw new IOException("File path for role " + user.getRole() + " is null.");
         }
 
-        // Debug logging to check the file path
+
         System.out.println("Saving user to file: " + filePath);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {

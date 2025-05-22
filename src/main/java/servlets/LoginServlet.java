@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
             // Redirect to a welcome page (e.g., dashboard.jsp)
             if (user.getRole().equals("admin")) {
-                response.sendRedirect("admin/dashboard");
+                response.sendRedirect(" UserDashboard.jsp");
 
             } else {
                 response.sendRedirect("UserDashboard.jsp");  // Redirecting to the user dashboard
