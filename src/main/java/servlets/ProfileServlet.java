@@ -23,12 +23,12 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         User user = null;
 
-        // Check if user is logged in
+
         if (session != null && session.getAttribute("user") != null) {
             user = (User) session.getAttribute("user");
             String username = user.getUsername();
 
-            // Search for user across all role files
+
             for (String role : new String[]{"client", "agent", "admin"}) {
                 String filePath = FileUtil.getFileForRole(role);
                 if (filePath != null) {
@@ -52,7 +52,7 @@ public class ProfileServlet extends HttpServlet {
                             }
                         }
                         if (user != null && user.getRole().equals(role)) {
-                            break; // Exit outer loop if user is found
+                            break;
                         }
                     }
                 }

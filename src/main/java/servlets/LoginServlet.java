@@ -20,12 +20,12 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            // Redirect to a welcome page (e.g., dashboard.jsp)
+
             if (user.getRole().equals("admin")) {
                 response.sendRedirect(" UserDashboard.jsp");
 
             } else {
-                response.sendRedirect("UserDashboard.jsp");  // Redirecting to the user dashboard
+                response.sendRedirect("UserDashboard.jsp");
             }
         } else {
             response.getWriter().write("Login failed");
